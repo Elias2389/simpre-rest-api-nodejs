@@ -3,10 +3,9 @@ const express = require('express');
 const app = express();
 
 const { config } = require('./config/index');
+const moviesApi = require('./routes/movies');
 
-app.get('/', (req, res) => {
-    res.send('Test server');
-});
+moviesApi(app);
 
 app.listen(config.port, () => {
     console.log(`Listenig on port http://localhost:${config.port}`);
