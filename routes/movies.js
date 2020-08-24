@@ -1,5 +1,7 @@
 const express = require('express');
-const { moviesMock } = require('../utils/moviesMocks');
+const MoviesServices = require('../service/movies');
+
+const moviesService = new MoviesServices();
 
 function moviesApi(app) {
     const router = express.Router();
@@ -8,7 +10,7 @@ function moviesApi(app) {
 
     router.get("/", async (req, res, next) => {
         try {
-           const movies = await Promise.resolve(moviesMock);
+           const movies = await moviesService.getMovies();
            res.status(200).json({
                data: movies,
                message: 'Movies listed'
@@ -20,7 +22,7 @@ function moviesApi(app) {
 
     router.get("/:movieId", async (req, res, next) => {
         try {
-           const movies = await Promise.resolve(moviesMock[0].id);
+           const movies = await moviesService.getMovie();
            res.status(200).json({
                data: movies,
                message: 'Movies retrieve'
@@ -32,7 +34,7 @@ function moviesApi(app) {
 
     router.post("/", async (req, res, next) => {
         try {
-           const createMovieId = await Promise.resolve(moviesMock[0].id);
+           const createMovieId = await moviesService.createMovie();
            res.status(201).json({
                data: createMovieId,
                message: 'Movie created'
@@ -44,7 +46,7 @@ function moviesApi(app) {
 
     router.put("/:movieId", async (req, res, next) => {
         try {
-           const updateMovie = await Promise.resolve(moviesMock[0].id);
+           const updateMovie = await moviesService.updateMovie();
            res.status(200).json({
                data: updateMovie,
                message: 'Movie updated'
@@ -56,7 +58,7 @@ function moviesApi(app) {
 
     router.delete("/:movieId", async (req, res, next) => {
         try {
-           const deletedMovie = await Promise.resolve(moviesMock[0].id);
+           const deletedMovie = await moviesService.deleteMovie();
            res.status(200).json({
                data: deletedMovie,
                message: 'Movie deleted'
