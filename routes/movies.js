@@ -9,8 +9,9 @@ function moviesApi(app) {
     app.use("/api/movies", router);
 
     router.get("/", async (req, res, next) => {
+        const { tags } = req.query;
         try {
-           const movies = await moviesService.getMovies();
+           const movies = await moviesService.getMovies({ tags });
            res.status(200).json({
                data: movies,
                message: 'Movies listed'
@@ -21,8 +22,9 @@ function moviesApi(app) {
     });
 
     router.get("/:movieId", async (req, res, next) => {
+        const { movieId } = req.params;
         try {
-           const movies = await moviesService.getMovie();
+           const movies = await moviesService.getMovie({ movieId });
            res.status(200).json({
                data: movies,
                message: 'Movies retrieve'
@@ -33,8 +35,9 @@ function moviesApi(app) {
     });
 
     router.post("/", async (req, res, next) => {
+        const { body: movie } = req;
         try {
-           const createMovieId = await moviesService.createMovie();
+           const createMovieId = await moviesService.createMovie({ movie });
            res.status(201).json({
                data: createMovieId,
                message: 'Movie created'
@@ -45,8 +48,10 @@ function moviesApi(app) {
     });
 
     router.put("/:movieId", async (req, res, next) => {
+        const { body: movie } = req;
+        const { movieId } = req.params;
         try {
-           const updateMovie = await moviesService.updateMovie();
+           const updateMovie = await moviesService.updateMovie({ movieId, movie });
            res.status(200).json({
                data: updateMovie,
                message: 'Movie updated'
@@ -57,8 +62,9 @@ function moviesApi(app) {
     });
 
     router.delete("/:movieId", async (req, res, next) => {
+        const { movieId } = req.params;
         try {
-           const deletedMovie = await moviesService.deleteMovie();
+           const deletedMovie = await moviesService.deleteMovie({ movieId });
            res.status(200).json({
                data: deletedMovie,
                message: 'Movie deleted'
