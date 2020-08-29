@@ -6,14 +6,21 @@ const { config } = require('./config/index');
 
 const moviesApi = require('./routes/movies');
 
-const { logErrors, errorHandler } = require('./utils/middleware/errorHandler');
+const { logErrors, wrapError, errorHandler } = require('./utils/middleware/errorHandler');
+const notFoundHandler = require('./utils/middleware/notFoundHandler');
 
 app.use(express.json());
 
 moviesApi(app);
 
+//404 error Handler
+app.use(notFoundHandler);
+
+//Error middleware
 app.use(logErrors);
+app.use(wrapError);
 app.use(errorHandler);
+
 
 app.listen(config.port, () => {
   console.log(`Listenig on port http://localhost:${config.port}`);
