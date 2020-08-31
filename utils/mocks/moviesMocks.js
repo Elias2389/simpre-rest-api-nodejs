@@ -152,7 +152,12 @@ const moviesMock = [
       tags: ['Action|Adventure|Comedy|Drama|War', 'Animation', 'Drama']
     }
   ];
+
+  function filteredMoviesMocks(tag) {
+    return moviesMock.filter(movie => movie.tags.includes(tag));
+  }
   
   module.exports = {
-    moviesMock
+    moviesMock,
+    filteredMoviesMocks
   };
