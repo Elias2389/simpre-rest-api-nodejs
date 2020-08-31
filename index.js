@@ -8,8 +8,10 @@ const moviesApi = require('./routes/movies');
 
 const { logErrors, wrapError, errorHandler } = require('./utils/middleware/errorHandler');
 const notFoundHandler = require('./utils/middleware/notFoundHandler');
+const morgan = require('morgan');
 
 app.use(express.json());
+app.use(morgan('tiny'));
 
 moviesApi(app);
 
