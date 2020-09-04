@@ -12,9 +12,6 @@ branches:
     - feature
     - fix
 
-scripts:
-    - yarn deploy
-
 cache:
     directories:
         - node_modules
