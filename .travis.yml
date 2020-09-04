@@ -1,0 +1,19 @@
+language: node_js
+
+git: 
+    depth: 3 
+
+node_js:
+    - '10'
+
+branches:
+    only:
+    - master
+    - feature
+    - fix
+
+cache:
+    directories:
+        - node_modules
+        - ~/.npm
+        
